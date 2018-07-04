@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add new item</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"> </script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="fullbleed layout vertical">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Inventory/Catalog</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% if user==None %}
+          <li>
+            <div id="signinButton">
+              <span class="g-signin"
+                 data-scope="openid"
+                 data-clientid="907628700287-nbhafg5kb8c75ier3grqldj96sodrseh.apps.googleusercontent.com"
+                 data-redirecturi="postmessage"
+                 data-accesstype="offline"
+                 data-cookiepolicy="single_host_origin"
+                 data-callback="signInCallback"
+                 data-approvalprompt="force">
+              </span>
+            </div>
+          </li>
+          {% else %}
+          <li><a href="">Logged in as: {{ user }}</a></li>
+          <li><a href="{{ url_for('gdisconnect') }}">Sign out</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-md-offset-1">
+        <h3>Add new item</h3>
+        <form action="{{ url_for('newItem')}}" method='post'>
+          <label for="title">Title:</label>
+          <input type="text" name='title'>
+          <br>
+          <label for="description">Description:</label>
+          <br>
+          <textarea name="description" rows="8" cols="40"></textarea>
+          <br>
+          <label for="category_id">Category:</label>
+          <select name="category_id">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+          <br><br>
+          <input class="btn btn-block btn-success center" type='submit' value='Add'>
+        </form>
+      <div class="flash">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+          {% for message in messages %}
+          <li><strong>{{ message }}</strong></li>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

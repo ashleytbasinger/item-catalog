@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Delete item</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="fullbleed layout vertical">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Inventory/Catalog</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% if user==None %}
+          <li>
+            <div id="signinButton">
+              <span class="g-signin"
+                 data-scope="openid"
+                 data-clientid="907628700287-nbhafg5kb8c75ier3grqldj96sodrseh.apps.googleusercontent.com"
+                 data-redirecturi="postmessage"
+                 data-accesstype="offline"
+                 data-cookiepolicy="single_host_origin"
+                 data-callback="signInCallback"
+                 data-approvalprompt="force">
+              </span>
+            </div>
+          </li>
+          {% else %}
+          <li><a href="">Logged in as: {{ user }}</a></li>
+          <li><a href="{{ url_for('gdisconnect') }}">Sign out</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="well well-lg">Are you sure you want to delete <b> {{ item_title }}</b>?</div>
+    <form action="{{ url_for('deleteItem', item_title=item_title)}}" method='post'>
+      <input class="btn btn-danger" type="submit" value='Confirm Deletion'>
+    </form>
+  </div>
+</body>
+</html>

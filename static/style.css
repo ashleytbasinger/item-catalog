@@ -1,0 +1,29 @@
+body {
+  margin-top: 72px;
+}
+
+body > .container {
+  padding-top: 55px;
+  color: #212121;
+}
+
+#signinButton {
+  padding-top: 10px;
+}
+
+.navbar-default {
+  background-color: #B0E2FF;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
+  color: #FFFFFF;
+}
+
+.panel-default>.panel-heading {
+  background-color: #FFF68F;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+  background-color: #4682B4;
+  border-color: #4682B4;
+}
